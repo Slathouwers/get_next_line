@@ -6,7 +6,7 @@
 /*   By: slathouw <slathouw@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/08 09:35:46 by slathouw          #+#    #+#             */
-/*   Updated: 2021/09/08 19:44:22 by slathouw         ###   ########.fr       */
+/*   Updated: 2021/09/12 12:35:33 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,15 +20,19 @@ int	main(void)
 {
 	int		fd;
 	char	*nl;
+	int		i;
 
+	i = 1;
 	fd = open("./test.txt", O_RDONLY);
 	nl = get_next_line(fd);
 	while (nl)
 	{
-		printf(GREEN("Line read = \n%s\n"), nl);
+		printf(GREEN("Line %i read = \n%s"), i, nl);
+		free(nl);
 		nl = get_next_line(fd);
+		i++;
 	}
 	if (!nl)
-		printf("(NULL)");
+		printf("(NULL)\n");
 	close(fd);
 }
