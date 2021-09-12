@@ -6,7 +6,7 @@
 /*   By: slathouw <slathouw@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/08 09:33:08 by slathouw          #+#    #+#             */
-/*   Updated: 2021/09/12 12:35:05 by slathouw         ###   ########.fr       */
+/*   Updated: 2021/09/12 12:42:09 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,11 @@ void	ft_set_save(char **save, char *text)
 
 int	save_read_fd(char **save, int fd)
 {
-	char	buff[10000000 + 1];
+	char	buff[BUFFER_SIZE + 1];
 	int		bytes_read;
 	char	*swap;
 
-	bytes_read = read(fd, buff, 10000000);
+	bytes_read = read(fd, buff, BUFFER_SIZE);
 	if (bytes_read)
 	{
 		buff[bytes_read] = '\0';
