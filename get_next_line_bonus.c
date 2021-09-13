@@ -6,20 +6,20 @@
 /*   By: slathouw <slathouw@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/08 09:33:08 by slathouw          #+#    #+#             */
-/*   Updated: 2021/09/13 13:22:22 by slathouw         ###   ########.fr       */
+/*   Updated: 2021/09/13 15:29:42 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line_bonus.h"
 
-void	ft_set_save(char **save, char *text, int fd)
+void	ft_set_save(char *save[1024], char *text, int fd)
 {
-	if (*save[fd])
+	if (save[fd])
 	{
-		free(*save[fd]);
-		*save = NULL;
+		free(save[fd]);
+		save[fd] = NULL;
 	}
-	*save[fd] = ft_strdup(text);
+	save[fd] = ft_strdup(text);
 	if (text)
 	{
 		free(text);
@@ -27,7 +27,7 @@ void	ft_set_save(char **save, char *text, int fd)
 	}
 }
 
-int	save_read_fd(char **save, int fd)
+int	save_read_fd(char *save[1024], int fd)
 {
 	char	buff[BUFFER_SIZE + 1];
 	int		bytes_read;
@@ -37,25 +37,25 @@ int	save_read_fd(char **save, int fd)
 	if (bytes_read)
 	{
 		buff[bytes_read] = '\0';
-		swap = ft_strjoin(*save[fd], buff);
+		swap = ft_strjoin(save[fd], buff);
 		ft_set_save(save, swap, fd);
 	}
 	return (bytes_read);
 }
 
-char	*get_line(char **save, char *nlptr, int fd)
+char	*get_line(char *save[1024], char *nlptr, int fd)
 {
 	char	*tmp;
 	char	*line;
 
 	if (!nlptr)
 	{
-		line = ft_strdup(*save[fd]);
+		line = ft_strdup(save[fd]);
 		ft_set_save(save, ft_strdup(""), fd);
 		return (line);
 	}
 	*nlptr = '\0';
-	tmp = ft_strdup(*save[fd]);
+	tmp = ft_strdup(save[fd]);
 	line = ft_strjoin(tmp, "\n");
 	if (tmp)
 		free(tmp);
@@ -78,13 +78,13 @@ char	*get_next_line(int fd)
 	nlptr = ft_strchr(save[fd], '\n');
 	while (!nlptr)
 	{
-		bytes_saved = save_read_fd(&save, fd);
+		bytes_saved = save_read_fd(save, fd);
 		if (!bytes_saved)
 			break ;
 		nlptr = ft_strchr(save[fd], '\n');
 	}
 	if (ft_strlen(save[fd]))
-		return (get_line(&save, nlptr, fd));
+		return (get_line(save, nlptr, fd));
 	if (save[fd])
 	{
 		free(save[fd]);
