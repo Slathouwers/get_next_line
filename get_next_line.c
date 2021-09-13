@@ -6,12 +6,11 @@
 /*   By: slathouw <slathouw@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/08 09:33:08 by slathouw          #+#    #+#             */
-/*   Updated: 2021/09/13 12:18:33 by slathouw         ###   ########.fr       */
+/*   Updated: 2021/09/13 12:29:12 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-#include <stdio.h> 	//TODO: delete!
 
 void	ft_set_save(char **save, char *text)
 {
