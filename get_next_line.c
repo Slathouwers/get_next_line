@@ -6,7 +6,7 @@
 /*   By: slathouw <slathouw@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/08 09:33:08 by slathouw          #+#    #+#             */
-/*   Updated: 2021/09/14 08:17:22 by slathouw         ###   ########.fr       */
+/*   Updated: 2021/09/15 11:05:43 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,8 @@ char	*get_line(char **save, char *nlptr)
 	if (!nlptr)
 	{
 		line = ft_strdup(*save);
-		free(*save);
+		if (save)
+			free(*save);
 		*save = NULL;
 		return (line);
 	}

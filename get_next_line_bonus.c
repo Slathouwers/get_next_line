@@ -6,13 +6,13 @@
 /*   By: slathouw <slathouw@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/08 09:33:08 by slathouw          #+#    #+#             */
-/*   Updated: 2021/09/14 08:17:46 by slathouw         ###   ########.fr       */
+/*   Updated: 2021/09/15 11:05:57 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line_bonus.h"
 
-void	ft_set_save(char *save[1024], char *text, int fd)
+static void	ft_set_save(char *save[1024], char *text, int fd)
 {
 	if (save[fd])
 	{
@@ -27,7 +27,7 @@ void	ft_set_save(char *save[1024], char *text, int fd)
 	}
 }
 
-int	save_read_fd(char *save[1024], int fd)
+static int	save_read_fd(char *save[1024], int fd)
 {
 	char	buff[BUFFER_SIZE + 1];
 	int		bytes_read;
@@ -43,7 +43,7 @@ int	save_read_fd(char *save[1024], int fd)
 	return (bytes_read);
 }
 
-char	*get_line(char *save[1024], char *nlptr, int fd)
+static char	*get_line(char *save[1024], char *nlptr, int fd)
 {
 	char	*tmp;
 	char	*line;
@@ -51,7 +51,8 @@ char	*get_line(char *save[1024], char *nlptr, int fd)
 	if (!nlptr)
 	{
 		line = ft_strdup(save[fd]);
-		free(save[fd]);
+		if (save[fd])
+			free(save[fd]);
 		save[fd] = NULL;
 		return (line);
 	}

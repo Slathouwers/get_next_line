@@ -6,7 +6,7 @@
 /*   By: slathouw <slathouw@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/08 10:17:58 by slathouw          #+#    #+#             */
-/*   Updated: 2021/09/13 12:28:52 by slathouw         ###   ########.fr       */
+/*   Updated: 2021/09/15 10:53:57 by slathouw         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,9 @@ int	ft_strlen(char *s)
 	int	len;
 
 	len = 0;
-	if (!s)
-		return (len);
-	while (*s++)
-		len++;
+	if (s)
+		while (*s++)
+			len++;
 	return (len);
 }
 
@@ -46,6 +45,8 @@ char	*ft_strdup(char *s)
 		return (NULL);
 	len = ft_strlen(s);
 	dup = (char *) malloc(len + 1);
+	if (!dup)
+		return (NULL);
 	while (*s)
 		*dup++ = *s++;
 	*dup = '\0';
@@ -59,8 +60,14 @@ char	*ft_strjoin(char *s1, char *s2)
 	int		len1;
 	int		len2;
 
+	if (!s1 && !s2)
+		return (NULL);
 	len1 = ft_strlen(s1);
 	len2 = ft_strlen(s2);
+	if (!s1)
+		return (ft_strdup(s2));
+	if (!s2)
+		return (ft_strdup(s1));
 	join = (char *) malloc(len1 + len2 + 1);
 	if (!join)
 		return (NULL);
